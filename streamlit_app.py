@@ -2,7 +2,6 @@ import streamlit as st
 import requests
 from streamlit_folium import folium_static
 import folium
-import plotly.express as px
 
 api_key = "8f1eeedc-4607-4093-b68c-9dcf1785a002"
 
