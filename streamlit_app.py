@@ -48,13 +48,13 @@ if category == "By City, State, and Country":
         country_selected = st.selectbox("Select a country", [""] + countries_list)
         if country_selected:
             states_dict = generate_list_of_states(country_selected)
-            st.write(states_dict)  # Debugging: print states_dict to see the API response
+            # st.write(states_dict)  # Debugging: print states_dict to see the API response
             if states_dict["status"] == "success":
                 states_list = [i["state"] for i in states_dict["data"]]
                 state_selected = st.selectbox("Select a state", [""] + states_list)
                 if state_selected:
                     cities_dict = generate_list_of_cities(state_selected, country_selected)
-                    st.write(cities_dict)  # Debugging: print cities_dict to see the API response
+                    # st.write(cities_dict)  # Debugging: print cities_dict to see the API response
                     if cities_dict["status"] == "success":
                         cities_list = [i["city"] for i in cities_dict["data"]]
                         city_selected = st.selectbox("Select a city", [""] + cities_list)
