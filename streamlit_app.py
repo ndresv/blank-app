@@ -2,46 +2,36 @@ import streamlit as st
 import requests
 
 
-api_key="include your api key here"
+api_key="8f1eeedc-4607-4093-b68c-9dcf1785a002"
 
 st.title("Weather and Air Quality Web App")
 st.header("Streamlit and AirVisual API")
 
 
 @st.cache_data
-def map_creator(latitude,longitude):
-    from streamlit_folium import folium_static
-    import folium
-
-    # center on the station
+def map_creator(latitude, longitude):
     m = folium.Map(location=[latitude, longitude], zoom_start=10)
-
-    # add marker for the station
     folium.Marker([latitude, longitude], popup="Station", tooltip="Station").add_to(m)
-
-    # call to render Folium map in Streamlit
     folium_static(m)
 
 @st.cache_data
 def generate_list_of_countries():
     countries_url = f"https://api.airvisual.com/v2/countries?key={api_key}"
     countries_dict = requests.get(countries_url).json()
-    # st.write(countries_dict)
     return countries_dict
 
 @st.cache_data
 def generate_list_of_states(country_selected):
     states_url = f"https://api.airvisual.com/v2/states?country={country_selected}&key={api_key}"
     states_dict = requests.get(states_url).json()
-    # st.write(states_dict)
     return states_dict
 
 @st.cache_data
-def generate_list_of_cities(state_selected,country_selected):
+def generate_list_of_cities(state_selected, country_selected):
     cities_url = f"https://api.airvisual.com/v2/cities?state={state_selected}&country={country_selected}&key={api_key}"
     cities_dict = requests.get(cities_url).json()
-    # st.write(cities_dict)
     return cities_dict
+
 
 category = st.selectbox("Select Input Method", ["By City, State, and Country", "By Nearest City (IP Address)", "By Latitude and Longitude"])
 
